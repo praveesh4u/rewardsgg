@@ -1,5 +1,0 @@
-_assetic:
-    resource: .
-    type: assetic
-_app:
-    resource: /home/praveesh/MyProjects/rewards_gg/app/config/routing_dev.yml
