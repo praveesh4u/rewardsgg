@@ -1,0 +1,17 @@
+services:
+    app.admin.user:
+        class: AppBundle\Admin\UserAdmin
+        arguments: [~, UserBundle\Entity\User, AppBundle:UserAdmin]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: User }
+
+    app.admin.giveaway:
+        class: AppBundle\Admin\GiveawayAdmin
+        arguments: [~, AppBundle\Entity\Giveaway, AppBundle:GiveawayAdmin]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: Giveaway }
+
+    app.menu_listener:
+        class: AppBundle\EventListener\MenuBuilderListener
+        tags:
+            - { name: kernel.event_listener, event: sonata.admin.event.configure.menu.sidebar, method: addMenuItems }

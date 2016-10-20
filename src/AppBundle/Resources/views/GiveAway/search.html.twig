@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+   <form action="{{path("search")}}" method="get">
+    <div>
+	    <label for="_name">Giveaway Name</label>
+	    <input type="text" class="form-control" id="name" name="_name" value="{{_name}}" required="required" />
+	</div>
+	<div>
+	<label for="sort">Sort By Price</label>
+   	<select class="form-control" id="sort" name="_sort">
+            <option default value="" >Please select order</option>
+            <option {% if (_sort == 'ASC') %} selected {% endif %} value="ASC">Low to High</option>
+            <option {% if (_sort == 'DESC') %} selected {% endif %} value="DESC">High to Low</option>
+    </select>
+    </div>
+    <br>
+    <div>
+    	<input class="btn btn-default" type="submit" id="_submit"  value="Search" />
+    	<a class="btn btn-danger" href="{{ path("search") }}">Reset</a>
+    </div>
+</form>
+
+<div>
+
+
+<br>
+{% if giveaways|length >0  %}
+    <div class="row">
+
+    </div>
+    <table class="table table-bordered table-striped table-condensed" >
+        <thead>{{ pagination|paginationTableHeader|raw }}</thead>
+        <tbody>
+        {% for gives in giveaways %}
+            <tr>
+                <td>{{gives.id}}</td>
+                <td>{{ gives.name }}</td>
+                <td>{{ gives.price }}</td>
+                <td>{{ gives.slug }}</td>
+            </tr>
+        {% endfor  %}
+        </tbody>
+    </table>
+    <div class="row" style="margin-top:20px;">
+
+    </div>
+
+    {% block paginationControl %}{{ pagination|paginationPageControl|raw }}{% endblock %}
+    {% block paginationStats %}{{ pagination|paginationStats|raw }}{% endblock %}
+{% endif %}
+
+</div>
+{% endblock body %}
